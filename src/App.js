@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { quiz } from "./api/data";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import { quiz } from './api/data';
+import './App.css';
+import { AmountLadder } from './api/ladder/amounts';
+import { LadderRanks } from './components/ladder/ladderRanks';
+import { LadderJokers } from './components/ladder/jokers';
+import { BackgroundImage } from './components/background/background';
 
 /**
  * This is our game state object with initial values
@@ -10,7 +14,9 @@ const gameState = {
   currentQuestionIndex: 0,
 
   /**The answer that the player gave to the current question */
-  playerAnswer: undefined
+  playerAnswer: undefined,
+  correctAnswer: undefined,
+  amountReached: undefined
 };
 
 /**
@@ -32,31 +38,43 @@ export default function App() {
    * The parameter "playerAnswer" contains the selected answer ("A","B","C" or "D")
    */
   const handlePlayerAnswerSelected = playerAnswer => {
-    const newState = {
-      currentQuestionIndex: state.currentQuestionIndex,
-      playerAnswer: playerAnswer
-    };
-    setState(newState);
+    console.log(playerAnswer);
+    console.log(state.correctAnswer);
+    if (playerAnswer === state.correctAnswer) {
+      alert('Correct!');
+    } else {
+      alert('Wrong!');
+    }
   };
 
   /**The presentation (View). For now only the current question text and buttons for possible answers*/
   return (
-    <div className="App">
-      <div>{question.text}</div>
-      <div>
-        <button onClick={() => handlePlayerAnswerSelected("A")}>
-          {question.answers.A}
-        </button>
-        <button onClick={() => handlePlayerAnswerSelected("B")}>
-          {question.answers.B}
-        </button>
-        <button onClick={() => handlePlayerAnswerSelected("C")}>
-          {question.answers.C}
-        </button>
-        <button onClick={() => handlePlayerAnswerSelected("D")}>
-          {question.answers.D}
-        </button>
-        <div>{question.answers[state.playerAnswer]}</div>
+    <div className='mainContainer'>
+      <BackgroundImage />
+      <div className='ladder'>
+        <LadderJokers />
+        <LadderRanks />
+      </div>
+      <div className='questions'>
+        <div className='questionWrapper'>
+          <div className='questionText'>{question.text}</div>
+          <div className='questionAnswerFirstRow'>
+            <div className='questionAnswerA' onClick={() => handlePlayerAnswerSelected('A')}>
+              A: {question.answers.A}
+            </div>
+            <div className='questionAnswerB' onClick={() => handlePlayerAnswerSelected('B')}>
+              B: {question.answers.B}
+            </div>
+          </div>
+          <div className='questionAnswerSecondRow'>
+            <div className='questionAnswerC' onClick={() => handlePlayerAnswerSelected('C')}>
+              C: {question.answers.C}
+            </div>
+            <div className='questionAnswerD' onClick={() => handlePlayerAnswerSelected('D')}>
+              D: {question.answers.D}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

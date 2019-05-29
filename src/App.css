@@ -1,37 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 button {
   width: 100px;
   padding: 5px;
@@ -50,4 +16,141 @@ button:hover {
   font-weight: 400;
   display: grid;
   place-content: center;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.mainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  grid-template-rows: 9fr 4fr;
+  background-color: lightgray;
+  grid-template-areas:
+    'backgroundImage ladder'
+    'questions questions';
+}
+
+.background {
+  grid-area: backgroundImage;
+  background-color: black;
+}
+
+.background > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.ladder {
+  grid-area: ladder;
+  background-color: darkblue;
+}
+
+.questions {
+  grid-area: questions;
+  background-color: darkblue;
+  display: grid;
+  place-items: center;
+}
+
+.questionWrapper {
+  width: 90%;
+  display: grid;
+  place-items: center;
+}
+
+.questionText {
+  width: 100%;
+  border: 5px solid orange;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  font-family: 'Arial';
+  font-size: 18px;
+  text-align: center;
+}
+
+.questionAnswerFirstRow,
+.questionAnswerSecondRow {
+  display: flex;
+  margin: 10px;
+  width: 60%;
+}
+
+.questionAnswerA,
+.questionAnswerB,
+.questionAnswerC,
+.questionAnswerD {
+  padding: 10px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  background-color: black;
+  border-radius: 5px;
+}
+.questionAnswerA:hover,
+.questionAnswerB:hover,
+.questionAnswerC:hover,
+.questionAnswerD:hover {
+  background-color: orange;
+  color: black;
+}
+.ladder {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 2fr 8fr;
+  place-items: center;
+}
+.ladderIcons {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+}
+
+.ladderIcon5050 > img,
+.ladderIconPhone > img,
+.ladderIconAudience > img {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  width: 40%;
+  max-width: 40%;
+  height: auto;
+  object-fit: cover;
+  background-color: rgb(161, 105, 0);
+  border-radius: 30%;
+  margin-left: 20%;
+}
+
+.ladderRanks {
+  width: 100%;
+  margin-right: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: gold;
+}
+.ladderSingleRank {
+  padding: 2px;
 }
