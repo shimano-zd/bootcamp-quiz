@@ -104,7 +104,7 @@ export default function App() {
       {state.gameOverVisible ? (
         <div className='gameOverModal'>
           <p>Nažalost, to je netočno.</p>
-
+          <i class='fas fa-check-circle' />
           <p>Osvojili ste: {state.amountReached} KN.</p>
           <div className='gameOverModalButton' onClick={() => resetGame()}>
             OK

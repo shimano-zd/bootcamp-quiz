@@ -127,19 +127,35 @@ body {
   place-items: center;
 }
 
-.ladderIcon5050 > img,
-.ladderIconPhone > img,
-.ladderIconAudience > img {
-  display: grid;
-  place-items: center;
-  padding: 10px;
-  width: 40%;
-  max-width: 40%;
-  height: auto;
-  object-fit: cover;
-  background-color: rgb(161, 105, 0);
-  border-radius: 30%;
-  margin-left: 20%;
+.ladderIcon5050 {
+  color: gold;
+  font-family: Arial;
+  font-size: 30px;
+  border-radius: 40%;
+  border: 3px solid gold;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.fa-users {
+  color: gold;
+  transform: scale(3.6);
+}
+
+.fa-phone-square {
+  color: gold;
+  transform: scale(3.6);
+}
+
+.ladderIcon5050:hover,
+.fa-phone-square:hover,
+.fa-users:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.ladderIcon5050:hover {
+  border: 2px solid white;
 }
 
 .ladderRanks {
@@ -152,6 +168,7 @@ body {
   font-size: 18px;
   color: gold;
   letter-spacing: 5px;
+  font-weight: 600;
 }
 .ladderSingleRank {
   padding: 2px;
@@ -186,4 +203,10 @@ body {
 
 .gameOverModalButton:hover {
   background-color: orange;
+  color: black;
+}
+
+.fa-check-circle {
+  color: red;
+  transform: scale(3);
 }
