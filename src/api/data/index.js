@@ -39,6 +39,46 @@ export const quiz = {
         D: '4128'
       },
       correctAnswer: 'C'
+    },
+    {
+      text: 'Koji od navedenih nije otok?',
+      answers: {
+        A: 'Brač',
+        B: 'Istra',
+        C: 'Korčula',
+        D: 'Rab'
+      },
+      correctAnswer: 'B'
+    },
+    {
+      text: 'Hvatač hvata, bacač baca, udarač udara.Koji je to sport?',
+      answers: {
+        A: 'Odbojka',
+        B: 'Bejzbol',
+        C: 'Hokej',
+        D: 'Nogomet'
+      },
+      correctAnswer: 'B'
+    },
+    {
+      text: 'Kako se zove žabac koji predvodi Muppete?',
+      answers: {
+        A: 'Ralf',
+        B: 'Gonzo',
+        C: 'Kermit',
+        D: 'Waldo'
+      },
+      correctAnswer: 'C'
+    },
+    {
+      text: 'Tko se natječe u klasi "optimist"?',
+      answers: {
+        A: 'Jedriličari',
+        B: 'Sanjkaši',
+        C: 'Motociklisti',
+        D: 'Biciklisti'
+      },
+      correctAnswer: 'A'
     }
   ]
 };

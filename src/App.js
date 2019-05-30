@@ -15,8 +15,10 @@ const gameState = {
 
   /**The answer that the player gave to the current question */
   playerAnswer: undefined,
-  correctAnswer: undefined,
-  amountReached: undefined
+  currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
+  rankReached: 0,
+  amountReached: AmountLadder()[0],
+  gameOverVisible: false
 };
 
 /**
@@ -32,21 +34,43 @@ export default function App() {
 
   /**
    * Take the current question from the quiz object using the question index from the state object */
-  const question = quiz.questions[state.currentQuestionIndex];
 
   /**This is the answer click  handler function. We will attach this to the button that presents offered answer.
    * The parameter "playerAnswer" contains the selected answer ("A","B","C" or "D")
    */
   const handlePlayerAnswerSelected = playerAnswer => {
-    console.log(playerAnswer);
-    console.log(state.correctAnswer);
-    if (playerAnswer === state.correctAnswer) {
-      alert('Correct!');
+    let nextRank;
+    let nextQuestion;
+
+    if (playerAnswer === state.currentQuestion.correctAnswer) {
+      nextRank = state.rankReached + 1;
+      nextQuestion = quiz.questions[Math.floor(Math.random() * quiz.questions.length)];
+
+      setState({
+        ...state,
+        rankReached: nextRank,
+        currentQuestion: nextQuestion,
+        amountReached: AmountLadder()[nextRank]
+      });
     } else {
-      alert('Wrong!');
+      setState({
+        ...state,
+        gameOverVisible: true
+      });
     }
+    console.log(state.amountReached);
   };
 
+  const resetGame = () => {
+    setState({
+      currentQuestionIndex: 0,
+      currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
+      playerAnswer: undefined,
+      rankReached: 0,
+      amountReached: AmountLadder()[0],
+      gameOverVisible: false
+    });
+  };
   /**The presentation (View). For now only the current question text and buttons for possible answers*/
   return (
     <div className='mainContainer'>
@@ -57,25 +81,36 @@ export default function App() {
       </div>
       <div className='questions'>
         <div className='questionWrapper'>
-          <div className='questionText'>{question.text}</div>
+          <div className='questionText'>{state.currentQuestion.text}</div>
           <div className='questionAnswerFirstRow'>
             <div className='questionAnswerA' onClick={() => handlePlayerAnswerSelected('A')}>
-              A: {question.answers.A}
+              A: {state.currentQuestion.answers.A}
             </div>
             <div className='questionAnswerB' onClick={() => handlePlayerAnswerSelected('B')}>
-              B: {question.answers.B}
+              B: {state.currentQuestion.answers.B}
             </div>
           </div>
           <div className='questionAnswerSecondRow'>
             <div className='questionAnswerC' onClick={() => handlePlayerAnswerSelected('C')}>
-              C: {question.answers.C}
+              C: {state.currentQuestion.answers.C}
             </div>
             <div className='questionAnswerD' onClick={() => handlePlayerAnswerSelected('D')}>
-              D: {question.answers.D}
+              D: {state.currentQuestion.answers.D}
             </div>
           </div>
         </div>
       </div>
+
+      {state.gameOverVisible ? (
+        <div className='gameOverModal'>
+          <p>Nažalost, to je netočno.</p>
+
+          <p>Osvojili ste: {state.amountReached} KN.</p>
+          <div className='gameOverModalButton' onClick={() => resetGame()}>
+            OK
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

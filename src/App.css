@@ -31,6 +31,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
+  box-sizing: border-box;
   grid-template-columns: 9fr 3fr;
   grid-template-rows: 9fr 4fr;
   background-color: lightgray;
@@ -150,7 +151,39 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   color: gold;
+  letter-spacing: 5px;
 }
 .ladderSingleRank {
   padding: 2px;
+}
+
+.gameOverModal {
+  width: 400px;
+  height: 400px;
+  background-color: darkblue;
+  border-radius: 10px;
+  border: 3px solid orange;
+  color: white;
+  display: grid;
+  place-items: center;
+  position: fixed;
+  z-index: 1000;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+}
+
+.gameOverModalButton {
+  width: 100px;
+  height: 30px;
+  border: 1px sold orange;
+  border-radius: 5px;
+  background-color: black;
+  cursor: pointer;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.gameOverModalButton:hover {
+  background-color: orange;
 }
