@@ -128,26 +128,27 @@ body {
 }
 
 .ladderIcon5050 {
-  color: gold;
+  color: darkblue;
   font-family: Arial;
   font-size: 30px;
+  font-weight: 600;
   border-radius: 40%;
-  border: 3px solid gold;
+  border: 3px solid orange;
   padding: 5px;
   box-sizing: border-box;
+  background-color: orange;
 }
 
 .fa-users {
-  color: gold;
+  color: orange;
   transform: scale(3.6);
 }
 
 .fa-phone-square {
-  color: gold;
+  color: orange;
   transform: scale(3.6);
 }
 
-.ladderIcon5050:hover,
 .fa-phone-square:hover,
 .fa-users:hover {
   color: white;
@@ -156,6 +157,8 @@ body {
 
 .ladderIcon5050:hover {
   border: 2px solid white;
+  background-color: white;
+  cursor: pointer;
 }
 
 .ladderRanks {
@@ -166,12 +169,38 @@ body {
   align-items: flex-end;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
-  color: gold;
+  color: orange;
   letter-spacing: 5px;
   font-weight: 600;
 }
 .ladderSingleRank {
   padding: 2px;
+  color: orange;
+}
+
+.highlightedRank {
+  color: gold;
+  border: 2px solid gold;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.ladderSingleRankMilestone {
+  color: white;
+}
+
+.gameOverScreen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 900;
+}
+
+.gameOverBackground {
+  background-color: black;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
 }
 
 .gameOverModal {
@@ -190,15 +219,18 @@ body {
 }
 
 .gameOverModalButton {
-  width: 100px;
-  height: 30px;
+  width: 120px;
+  height: 40px;
   border: 1px sold orange;
   border-radius: 5px;
   background-color: black;
   cursor: pointer;
   color: white;
+  font-weight: 600;
+
   display: grid;
   place-items: center;
+  box-sizing: border-box;
 }
 
 .gameOverModalButton:hover {
@@ -206,7 +238,120 @@ body {
   color: black;
 }
 
-.fa-check-circle {
-  color: red;
-  transform: scale(3);
+.fa-times-circle {
+  color: darkorange;
+  transform: scale(5);
 }
+
+.audience-joker-wrapper {
+  width: 500px;
+  height: 400px;
+  background-color: darkblue;
+  border-radius: 10px;
+  border: 2px gold solid;
+  position: fixed;
+  z-index: 500;
+  top: 30px;
+  left: 30px;
+  box-sizing: border-box;
+}
+
+.audience-joker-title {
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.audience-joker-loading {
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+  margin-top: 20%;
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.audience-joker-chart {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10%;
+  font-size: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  height: 270px;
+  display: flex;
+  flex-direction: row;
+}
+
+.audience-joker-chart-single-bar {
+  width: calc(100% / 10);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  margin-left: calc(100% / 12);
+  margin-right: calc(100% / 12);
+}
+
+.audience-joker-chart-single-bar-fill {
+  background-color: gold;
+  width: 100%;
+  height: 85%;
+  margin-bottom: 5px;
+}
+
+.audience-joker-chart-single-bar-text {
+  color: white;
+}
+
+/**
+
+LOADER
+
+*/
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: gold;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+  50%,
+  100% {
+    top: 19px;
+    height: 26px;
+  }
+}
+/*
+LOADER END
+*/

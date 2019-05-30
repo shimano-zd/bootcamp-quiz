@@ -5,6 +5,7 @@ import { AmountLadder } from './api/ladder/amounts';
 import { LadderRanks } from './components/ladder/ladderRanks';
 import { LadderJokers } from './components/ladder/jokers';
 import { BackgroundImage } from './components/background/background';
+import { AudienceJoker } from './components/audienceJoker/AudienceJoker';
 
 /**
  * This is our game state object with initial values
@@ -18,7 +19,10 @@ const gameState = {
   currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
   rankReached: 0,
   amountReached: AmountLadder()[0],
-  gameOverVisible: false
+  amountWon: 0,
+  gameOverVisible: false,
+  milestoneReached: undefined,
+  audienceJokerVisible: false
 };
 
 /**
@@ -50,17 +54,25 @@ export default function App() {
         ...state,
         rankReached: nextRank,
         currentQuestion: nextQuestion,
-        amountReached: AmountLadder()[nextRank]
+        amountReached: AmountLadder()[nextRank],
+        amountWon: AmountLadder()[nextRank - 1],
+        audienceJokerVisible: false
       });
     } else {
       setState({
         ...state,
+        audienceJokerVisible: false,
         gameOverVisible: true
       });
     }
-    console.log(state.amountReached);
   };
 
+  const handleAudienceClick = () => {
+    setState({
+      ...state,
+      audienceJokerVisible: true
+    });
+  };
   const resetGame = () => {
     setState({
       currentQuestionIndex: 0,
@@ -68,16 +80,20 @@ export default function App() {
       playerAnswer: undefined,
       rankReached: 0,
       amountReached: AmountLadder()[0],
-      gameOverVisible: false
+      gameOverVisible: false,
+      amountWon: 0,
+      audienceJokerVisible: false
     });
   };
   /**The presentation (View). For now only the current question text and buttons for possible answers*/
   return (
     <div className='mainContainer'>
+      {state.audienceJokerVisible ? <AudienceJoker /> : null}
+
       <BackgroundImage />
       <div className='ladder'>
-        <LadderJokers />
-        <LadderRanks />
+        <LadderJokers audienceClicked={() => handleAudienceClick()} />
+        <LadderRanks highlightedRank={state.amountReached} />
       </div>
       <div className='questions'>
         <div className='questionWrapper'>
@@ -102,13 +118,19 @@ export default function App() {
       </div>
 
       {state.gameOverVisible ? (
-        <div className='gameOverModal'>
-          <p>Nažalost, to je netočno.</p>
-          <i class='fas fa-check-circle' />
-          <p>Osvojili ste: {state.amountReached} KN.</p>
-          <div className='gameOverModalButton' onClick={() => resetGame()}>
-            OK
+        <div className='gameOverScreen'>
+          <div className='gameOverModal'>
+            <p>Nažalost, to je netočno.</p>
+            <i class='fas fa-times-circle' />
+            <p style={{ fontWeight: '600' }}>
+              Osvojili ste: <span style={{ color: 'orange', fontSize: '25px' }}>{state.amountWon} KN. </span>
+            </p>
+            <div className='gameOverModalButton' onClick={() => resetGame()}>
+              RESTART
+            </div>
           </div>
+
+          <div className='gameOverBackground' />
         </div>
       ) : null}
     </div>
