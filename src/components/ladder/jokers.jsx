@@ -7,10 +7,10 @@ export const LadderJokers = props => {
     <div className='ladderIcons'>
       <div className='ladderIcon5050'>50:50</div>
       <div className='ladderIconPhone'>
-        <i class='fas fa-phone-square' />
+        <i className='fas fa-phone-square' />
       </div>
       <div className='ladderIconAudience'>
-        <i class='fas fa-users' onClick={() => props.audienceClicked()} />
+        <i className='fas fa-users' onClick={() => props.audienceClicked()} />
       </div>
     </div>
   );

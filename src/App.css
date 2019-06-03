@@ -242,6 +242,10 @@ body {
   color: darkorange;
   transform: scale(5);
 }
+.fa-dollar-sign {
+  color: darkorange;
+  transform: scale(5);
+}
 
 .audience-joker-wrapper {
   width: 500px;

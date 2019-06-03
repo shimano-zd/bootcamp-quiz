@@ -6,6 +6,7 @@ import { LadderRanks } from './components/ladder/ladderRanks';
 import { LadderJokers } from './components/ladder/jokers';
 import { BackgroundImage } from './components/background/background';
 import { AudienceJoker } from './components/audienceJoker/AudienceJoker';
+import { GameOverMessage } from './components/gameOverMessage/GameOverMessage';
 
 /**
  * This is our game state object with initial values
@@ -13,7 +14,7 @@ import { AudienceJoker } from './components/audienceJoker/AudienceJoker';
 const gameState = {
   /**Index of a question the player is currently answering */
   currentQuestionIndex: 0,
-
+  gameStarted: false,
   /**The answer that the player gave to the current question */
   playerAnswer: undefined,
   currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
@@ -45,23 +46,42 @@ export default function App() {
   const handlePlayerAnswerSelected = playerAnswer => {
     let nextRank;
     let nextQuestion;
+    let nextAward;
+    let nextMilestone;
+    let nextAmount;
 
     if (playerAnswer === state.currentQuestion.correctAnswer) {
       nextRank = state.rankReached + 1;
       nextQuestion = quiz.questions[Math.floor(Math.random() * quiz.questions.length)];
+      nextAmount = AmountLadder()[nextRank];
+      nextAward = AmountLadder()[nextRank - 1];
+      nextMilestone = () => {
+        switch (nextAward) {
+          case 1000:
+            return 1000;
+          case 32000:
+            return 32000;
+          case 1000000:
+            return 1000000;
+          default:
+            return;
+        }
+      };
 
       setState({
         ...state,
         rankReached: nextRank,
         currentQuestion: nextQuestion,
-        amountReached: AmountLadder()[nextRank],
-        amountWon: AmountLadder()[nextRank - 1],
-        audienceJokerVisible: false
+        amountReached: nextAmount,
+        amountWon: nextAward,
+        audienceJokerVisible: false,
+        milestoneReached: nextMilestone()
       });
     } else {
       setState({
         ...state,
         audienceJokerVisible: false,
+        amountWon: state.milestoneReached ? state.milestoneReached : 0,
         gameOverVisible: true
       });
     }
@@ -91,6 +111,7 @@ export default function App() {
       {state.audienceJokerVisible ? <AudienceJoker /> : null}
 
       <BackgroundImage />
+
       <div className='ladder'>
         <LadderJokers audienceClicked={() => handleAudienceClick()} />
         <LadderRanks highlightedRank={state.amountReached} />
@@ -118,20 +139,16 @@ export default function App() {
       </div>
 
       {state.gameOverVisible ? (
-        <div className='gameOverScreen'>
-          <div className='gameOverModal'>
-            <p>Nažalost, to je netočno.</p>
-            <i class='fas fa-times-circle' />
-            <p style={{ fontWeight: '600' }}>
-              Osvojili ste: <span style={{ color: 'orange', fontSize: '25px' }}>{state.amountWon} KN. </span>
-            </p>
-            <div className='gameOverModalButton' onClick={() => resetGame()}>
-              RESTART
-            </div>
-          </div>
+        <GameOverMessage
+          amountWon={state.amountWon}
+          message={'Nažalost, to nije točan odgovor...'}
+          resetGame={() => resetGame()}
+          icon={'fas fa-times-circle'}
+        />
+      ) : null}
 
-          <div className='gameOverBackground' />
-        </div>
+      {state.amountWon === 1000000 ? (
+        <GameOverMessage amountWon={state.amountWon} message={'ČESTITAMO!!!'} resetGame={() => resetGame()} icon={'fas fa-dollar-sign'} />
       ) : null}
     </div>
   );
